@@ -150,14 +150,7 @@ function renderHome() {
           : `<div class="empty-results"><h3>No encontramos esa combinación</h3><p>Probá otra búsqueda o volvé a ver todos los productos.</p><button id="clear-filters">Limpiar filtros</button></div>`
       }
     </section>
-
-    <section class="category-strip" id="categorias" aria-label="Categorías destacadas">
-      <div><b class="cat-icon">☎</b><span><b>Celulares</b>iPhone y equipos</span></div>
-      <div><b class="cat-icon">◷</b><span><b>Smartwatch</b>Relojes y wearables</span></div>
-      <div><b class="cat-icon">♬</b><span><b>Audio</b>Auriculares y sonido</span></div>
-      <div><b class="cat-icon">⚡</b><span><b>Cargadores</b>Cables y carga</span></div>
-      <div><b class="cat-icon">◆</b><span><b>Protección</b>Vidrios y pantallas</span></div>
-    </section>
+    
     ${footer()}
   `;
 
