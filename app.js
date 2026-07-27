@@ -73,7 +73,7 @@ function footer() {
   return `
     <footer>
       <div class="footer-brands">
-        <img src="assets/servicell-logo.png" alt="Servicell Paraná" />
+        <img src="assets/servicell-logo-transparent.png" alt="Servicell Paraná" />
         <b class="urban-wordmark"><strong>URBAN</strong>CASE</b>
       </div>
       <p>Dos locales para celulares, accesorios, fundas y tecnología en Paraná.</p>
@@ -129,7 +129,7 @@ function renderHome() {
     <section class="catalog storefront-catalog" id="productos">
       <div class="shop-title">
         <div class="shop-brand-stack">
-          <img src="assets/servicell-logo.png" alt="Servicell Paraná" />
+          <img src="assets/servicell-black-logo-transparent.png" alt="Servicell Paraná" />
           <b class="urban-wordmark"><strong>URBAN</strong>CASE</b>
         </div>
         <h1>Tienda</h1>
@@ -363,7 +363,7 @@ function checkout() {
     const details = [variants, item.comment ? `Comentario: ${item.comment}` : ""].filter(Boolean).join(" · ");
     return `• ${item.quantity}x ${product?.name || "Producto"}${details ? ` (${details})` : ""} - ${money((product?.price || 0) * item.quantity)}`;
   });
-  const message = ["¡Hola Servicell Paraná y UrbanCase! 👋", "Quiero consultar por este pedido:", "", ...lines, "", `Total estimado: ${money(total)}`, "", "¿Me confirman disponibilidad, local de retiro y formas de entrega?"].join("\n");
+  const message = ["¡Hola Servicell Paraná! 👋", "Quiero consultar por este pedido:", "", ...lines, "", `Total estimado: ${money(total)}`, "", "¿Me confirman disponibilidad, local de retiro y formas de entrega?"].join("\n");
   window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
 }
 
