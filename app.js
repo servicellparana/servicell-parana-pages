@@ -110,7 +110,6 @@ function renderHome() {
         <p>Catálogo actualizado de celulares, fundas, accesorios y tecnología para consultar disponibilidad en cualquiera de nuestros locales.</p>
         <div class="hero-actions">
           <a href="#productos" class="primary-button">Ver productos →</a>
-          <a href="#locales" class="text-link">Ver locales ↓</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -125,37 +124,6 @@ function renderHome() {
         <div class="hero-sticker">2<br><small>LOCALES</small></div>
       </div>
       <div class="hero-bottom"><span>SERVICELL PARANÁ</span><span>URBANCASE</span><span>CATÁLOGO 2026</span></div>
-    </section>
-
-    <section class="stores-section" id="locales" aria-label="Locales">
-      <div class="stores-heading">
-        <span class="eyebrow"><i></i> Nuestros locales</span>
-        <h2>Elegí dónde querés consultar o retirar.</h2>
-      </div>
-      <div class="store-grid">
-        <article class="store-card store-servicell">
-          <div class="store-logo">
-            <img src="assets/servicell-logo.png" alt="Servicell Paraná" />
-          </div>
-          <div>
-            <span class="product-category">Celulares + accesorios</span>
-            <h3>Servicell Paraná</h3>
-            <p>Equipos, audio, smartwatch, cargadores y accesorios para resolver tu compra con atención personalizada.</p>
-          </div>
-          <a href="#productos" class="store-link">Ver catálogo →</a>
-        </article>
-        <article class="store-card store-urbancase">
-          <div class="store-logo">
-            <b class="urban-wordmark"><strong>URBAN</strong>CASE</b>
-          </div>
-          <div>
-            <span class="product-category">Fundas + protección</span>
-            <h3>UrbanCase</h3>
-            <p>El local para encontrar fundas, estilos y protección para tu celu dentro de la misma tienda online.</p>
-          </div>
-          <a href="https://wa.me/5493496503349?text=Hola%2C%20quiero%20consultar%20por%20UrbanCase" target="_blank" rel="noreferrer" class="store-link">Consultar →</a>
-        </article>
-      </div>
     </section>
 
     <section class="catalog storefront-catalog" id="productos">
