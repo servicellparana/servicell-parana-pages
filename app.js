@@ -1,5 +1,5 @@
 const WHATSAPP_PHONE = "5493496503349";
-const STORAGE_KEY = "servicell-cart-static";
+const STORAGE_KEY = "servicell-urbancase-cart-static";
 const categories = ["Todos", "Celulares", "Smartwatch", "Fundas", "Audio", "Cargadores", "Protección"];
 
 let state = {
@@ -72,13 +72,17 @@ function productCard(product, index = 0) {
 function footer() {
   return `
     <footer>
-      <img src="assets/servicell-logo.png" alt="Servicell Paraná" />
-      <p>Accesorios para celulares.</p>
-      <div>
-        <a href="#productos">Productos</a>
-        <a href="https://wa.me/5493496503349?text=Hola%20Servicell%20Paran%C3%A1" target="_blank" rel="noreferrer">WhatsApp ↗</a>
+      <div class="footer-brands">
+        <img src="assets/servicell-logo.png" alt="Servicell Paraná" />
+        <b class="urban-wordmark"><strong>URBAN</strong>CASE</b>
       </div>
-      <small>© 2026 Servicell Paraná</small>
+      <p>Dos locales para celulares, accesorios, fundas y tecnología en Paraná.</p>
+      <div>
+        <a href="#locales">Locales</a>
+        <a href="#productos">Productos</a>
+        <a href="https://wa.me/5493496503349?text=Hola%20Servicell%20Paran%C3%A1%20y%20UrbanCase" target="_blank" rel="noreferrer">WhatsApp ↗</a>
+      </div>
+      <small>© 2026 Servicell Paraná + UrbanCase</small>
     </footer>
   `;
 }
@@ -101,32 +105,66 @@ function renderHome() {
     <section class="hero" id="inicio">
       <div class="hero-grid-lines"></div>
       <div class="hero-copy">
-        <span class="eyebrow"><i></i> Servicell Paraná</span>
-        <h1>Accesorios y celulares con <em>onda.</em></h1>
-        <p>Catálogo actualizado para consultar productos, armar tu pedido y confirmar disponibilidad por WhatsApp.</p>
+        <span class="eyebrow"><i></i> Servicell Paraná + UrbanCase</span>
+        <h1>Dos locales, una tienda con <em>onda.</em></h1>
+        <p>Catálogo actualizado de celulares, fundas, accesorios y tecnología para consultar disponibilidad en cualquiera de nuestros locales.</p>
         <div class="hero-actions">
           <a href="#productos" class="primary-button">Ver productos →</a>
-          <a href="https://wa.me/5493496503349?text=Hola%20Servicell%20Paran%C3%A1" target="_blank" rel="noreferrer" class="text-link">WhatsApp ↗</a>
+          <a href="#locales" class="text-link">Ver locales ↓</a>
         </div>
       </div>
       <div class="hero-visual">
         <div class="orb orb-one"></div>
         <div class="orb orb-two"></div>
-        <div class="hero-product-card card-back"><span>SERVICELL</span><small>PARANÁ</small></div>
+        <div class="hero-product-card card-back"><span>URBAN</span><strong>CASE</strong><small>FUNDAS + PROTECCIÓN</small></div>
         <div class="hero-product-card card-front">
           <span class="floating-label">DESTACADO</span>
           <img src="assets/products/iphone-12-pro-128gb-01.png" alt="iPhone 12 Pro" />
           <div><small>Disponible ahora</small><strong>iPhone 12 Pro</strong></div>
         </div>
-        <div class="hero-sticker">2026<br><small>CATÁLOGO</small></div>
+        <div class="hero-sticker">2<br><small>LOCALES</small></div>
       </div>
-      <div class="hero-bottom"><span>CELULARES</span><span>ACCESORIOS</span><span>SMARTWATCH</span></div>
+      <div class="hero-bottom"><span>SERVICELL PARANÁ</span><span>URBANCASE</span><span>CATÁLOGO 2026</span></div>
+    </section>
+
+    <section class="stores-section" id="locales" aria-label="Locales">
+      <div class="stores-heading">
+        <span class="eyebrow"><i></i> Nuestros locales</span>
+        <h2>Elegí dónde querés consultar o retirar.</h2>
+      </div>
+      <div class="store-grid">
+        <article class="store-card store-servicell">
+          <div class="store-logo">
+            <img src="assets/servicell-logo.png" alt="Servicell Paraná" />
+          </div>
+          <div>
+            <span class="product-category">Celulares + accesorios</span>
+            <h3>Servicell Paraná</h3>
+            <p>Equipos, audio, smartwatch, cargadores y accesorios para resolver tu compra con atención personalizada.</p>
+          </div>
+          <a href="#productos" class="store-link">Ver catálogo →</a>
+        </article>
+        <article class="store-card store-urbancase">
+          <div class="store-logo">
+            <b class="urban-wordmark"><strong>URBAN</strong>CASE</b>
+          </div>
+          <div>
+            <span class="product-category">Fundas + protección</span>
+            <h3>UrbanCase</h3>
+            <p>El local para encontrar fundas, estilos y protección para tu celu dentro de la misma tienda online.</p>
+          </div>
+          <a href="https://wa.me/5493496503349?text=Hola%2C%20quiero%20consultar%20por%20UrbanCase" target="_blank" rel="noreferrer" class="store-link">Consultar →</a>
+        </article>
+      </div>
     </section>
 
     <section class="catalog storefront-catalog" id="productos">
       <div class="shop-title">
-        <img src="assets/servicell-logo.png" alt="Servicell Paraná" />
-        <h1>Productos</h1>
+        <div class="shop-brand-stack">
+          <img src="assets/servicell-logo.png" alt="Servicell Paraná" />
+          <b class="urban-wordmark"><strong>URBAN</strong>CASE</b>
+        </div>
+        <h1>Tienda</h1>
       </div>
       <div class="catalog-toolbar">
         <label class="search-box">⌕<input id="search" value="${state.search}" placeholder="Buscar celulares, smartwatch, auriculares..." /></label>
@@ -357,7 +395,7 @@ function checkout() {
     const details = [variants, item.comment ? `Comentario: ${item.comment}` : ""].filter(Boolean).join(" · ");
     return `• ${item.quantity}x ${product?.name || "Producto"}${details ? ` (${details})` : ""} - ${money((product?.price || 0) * item.quantity)}`;
   });
-  const message = ["¡Hola Servicell Paraná! 👋", "Quiero consultar por este pedido:", "", ...lines, "", `Total estimado: ${money(total)}`, "", "¿Me confirman disponibilidad y formas de entrega?"].join("\n");
+  const message = ["¡Hola Servicell Paraná y UrbanCase! 👋", "Quiero consultar por este pedido:", "", ...lines, "", `Total estimado: ${money(total)}`, "", "¿Me confirman disponibilidad, local de retiro y formas de entrega?"].join("\n");
   window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
 }
 
