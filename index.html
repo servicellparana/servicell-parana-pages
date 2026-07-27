@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Catálogo de productos Servicell Paraná." />
+  <title>Servicell Paraná</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Servicell Paraná, inicio">
+      <img src="assets/servicell-logo-transparent.png" alt="Servicell Paraná" />
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal">
+      <a href="#productos">Productos</a>
+      <a href="#categorias">Categorías</a>
+    </nav>
+    <div class="header-actions">
+      <a class="icon-button search-shortcut" href="#productos" aria-label="Buscar productos">⌕</a>
+      <button class="cart-button" id="open-cart" aria-label="Abrir carrito">
+        <span>Carrito</span><b id="cart-count">0</b>
+      </button>
+      <button class="icon-button menu-button" id="menu-toggle" aria-label="Abrir menú">☰</button>
+    </div>
+  </header>
+
+  <main id="app"></main>
+
+  <button class="drawer-backdrop" id="drawer-backdrop" aria-label="Cerrar carrito"></button>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Carrito" aria-hidden="true">
+    <div class="drawer-header">
+      <div><span class="product-category">Pedido</span><h2>Carrito</h2></div>
+      <button class="icon-button" id="close-cart" aria-label="Cerrar carrito">×</button>
+    </div>
+    <div id="cart-body"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Total estimado</span><strong id="cart-total">$ 0</strong></div>
+      <button class="whatsapp-button" id="checkout-button"><span>Consultar por WhatsApp</span><span>→</span></button>
+      <p>La compra se confirma por WhatsApp según disponibilidad.</p>
+    </div>
+  </aside>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
