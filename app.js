@@ -78,7 +78,6 @@ function footer() {
       </div>
       <p>Dos locales para celulares, accesorios, fundas y tecnología en Paraná.</p>
       <div>
-        <a href="#locales">Locales</a>
         <a href="#productos">Productos</a>
         <a href="https://wa.me/5493496503349?text=Hola%20Servicell%20Paran%C3%A1%20y%20UrbanCase" target="_blank" rel="noreferrer">WhatsApp ↗</a>
       </div>
