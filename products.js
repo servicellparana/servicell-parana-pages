@@ -1,5 +1,18 @@
 const products = [
   {
+    id: 16,
+    name: "Cargador inalámbrico MagSafe Only ION",
+    category: "Cargadores",
+    images: ["assets/products/cargador-inalambrico-magsafe-only-ion-01.jpeg"],
+    description: "Cargador inalámbrico magnético Only ION estilo MagSafe con cable Type-C integrado. Ideal para iPhone compatibles con carga magnética. Stock disponible: 4 unidades.",
+    shortDescription: "Cargador inalámbrico magnético MagSafe con cable Type-C.",
+    price: 20000,
+    badge: "4 en stock",
+    featured: true,
+    variants: [{ name: "Color", options: ["Blanco"] }],
+    specs: ["4 unidades disponibles", "Carga inalámbrica magnética", "Estilo MagSafe", "Cable Type-C integrado", "Color blanco"],
+  },
+  {
     id: 15,
     name: "Fundas silicona iPhone XR",
     category: "Fundas",
