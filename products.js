@@ -35,7 +35,7 @@ const products = [
     description: "Auriculares XAEA Crows color negro con conexión wireless, batería de alto rendimiento y puerto de carga USB-C. Stock disponible: 2 unidades.",
     shortDescription: "Wireless color negro, carga USB-C. 2 unidades disponibles.",
     price: 25000,
-    badge: "2 en stock",
+    badge: "3 en stock",
     featured: true,
     variants: [{ name: "Color", options: ["Negro"] }],
     specs: ["2 unidades disponibles", "Color negro", "Conexión wireless", "Puerto de carga USB-C", "Batería de alto rendimiento"],
