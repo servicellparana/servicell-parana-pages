@@ -88,6 +88,7 @@ function footer() {
 
 function renderHome() {
   const filtered = products
+    .filter((product) => product.category !== "Servicio Técnico") 
     .filter((product) => {
       const matchesCategory = state.category === "Todos" || product.category === state.category;
       const query = state.search.trim().toLowerCase();
@@ -107,8 +108,9 @@ function renderHome() {
         <span class="eyebrow"><i></i> Servicell Paraná + UrbanCase</span>
         <h1>Dos locales, una tienda con <em>onda.</em></h1>
         <p>Catálogo actualizado de celulares, fundas, accesorios y tecnología para consultar disponibilidad en cualquiera de nuestros locales.</p>
-        <div class="hero-actions">
-          <a href="#productos" class="primary-button">Ver productos →</a>
+        <div class="hero-actions" style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <a href="#productos" class="primary-button">VER PRODUCTOS →</a>
+          <a href="#servicio" class="primary-button" style="background: transparent; border: 2px solid var(--primary, #ccff00); color: var(--primary, #ccff00);">SERVICIO TÉCNICO 🛠️</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -173,20 +175,33 @@ function renderDetail(id) {
       <div class="product-detail-shell">
         <a href="#productos" class="back-link">← Volver al catálogo</a>
         <div class="product-detail-grid">
+          
           <section class="gallery">
             <div class="gallery-main">
-              <img src="${product.images[state.activeImage] || product.images[0]}" alt="${product.name}, vista ${state.activeImage + 1}" />
+              ${(product.images[state.activeImage] || product.images[0]).toLowerCase().endsWith('.mp4') 
+                ? `<video src="${product.images[state.activeImage] || product.images[0]}" autoplay loop muted playsinline style="width: 100%; border-radius: 8px;"></video>` 
+                : `<img src="${product.images[state.activeImage] || product.images[0]}" alt="${product.name}, vista ${state.activeImage + 1}" />`
+              }
               ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ""}
               <span class="image-count">0${state.activeImage + 1} / 0${product.images.length}</span>
             </div>
+            
             <div class="gallery-thumbs">
-              ${product.images.map((image, index) => `<button data-image="${index}" class="${state.activeImage === index ? "active" : ""}"><img src="${image}" alt="Vista ${index + 1}" /></button>`).join("")}
+              ${product.images.map((image, index) => `
+                <button data-image="${index}" class="${state.activeImage === index ? "active" : ""}">
+                  ${image.toLowerCase().endsWith('.mp4') 
+                    ? `<video src="${image}" muted playsinline></video><div class="play-icon-overlay" style="position: absolute; color: white; background: rgba(0,0,0,0.5); border-radius: 50%; padding: 4px; font-size: 10px; top: 50%; left: 50%; transform: translate(-50%, -50%);">▶</div>` 
+                    : `<img src="${image}" alt="Vista ${index + 1}" />`
+                  }
+                </button>
+              `).join("")}
             </div>
           </section>
+
           <section class="product-info">
             <span class="product-category">${product.category} / Colección 2026</span>
             <h1>${product.name}</h1>
-            <div class="detail-price"><strong>${money(product.price)}</strong>${product.oldPrice ? `<del>${money(product.oldPrice)}</del>` : ""}<span>3 cuotas sin interés</span></div>
+            <div class="detail-price"><strong>${money(product.price)}</strong>${product.oldPrice ? `<del>${money(product.oldPrice)}</del>` : ""}<span>Efectivo / Transferencia</span></div>
             <p class="detail-description">${product.description}</p>
             ${product.variants.map((variant) => `
               <fieldset class="variant-group">
@@ -208,7 +223,6 @@ function renderDetail(id) {
     </main>
     ${footer()}
   `;
-
   wireDetail(product);
 }
 
@@ -359,6 +373,39 @@ function checkout() {
   window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
 }
 
+function renderServicio() {
+  // Filtramos para mostrar SOLO lo que es Servicio Técnico
+  const servicios = products.filter(p => p.category === "Servicio Técnico");
+
+  app.innerHTML = `
+    <main class="product-page">
+      <div style="padding: 80px 20px 50px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 15px; max-width: 600px; margin: 0 auto;">
+        <span class="eyebrow" style="letter-spacing: 2px;">SERVICELL PARANÁ</span>
+        
+        <h2 style="margin: 0; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1;">
+          Nuestro <br>
+          <em style="color: var(--primary, #ccff00); font-style: normal;">Servicio Técnico</em>
+        </h2>
+        
+        <p style="color: #a0a0a0; font-size: 1.1rem; margin: 10px 0 20px;">
+          Conocé nuestros trabajos de reparación, cambios de módulo, batería, tapa láser y más.
+        </p>
+        
+        <a href="#productos" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem; padding: 10px 24px; border: 1px solid #444; border-radius: 30px; transition: all 0.3s ease;">
+          ← Volver a la tienda principal
+        </a>
+      </div>
+      
+      <div class="product-grid" style="padding: 0 20px 60px;">
+        ${servicios.map(productCard).join("")}
+      </div>
+    </main>
+    ${footer()}
+  `;
+  
+  wireAddButtons();
+}
+
 function route() {
   const match = location.hash.match(/^#producto-(\d+)/);
   if (match) {
@@ -369,6 +416,15 @@ function route() {
     scrollTo(0, 0);
     return;
   }
+  
+  // ¡NUEVA RUTA! Si tocan el botón de servicio, abrimos la nueva tienda
+  if (location.hash === "#servicio") {
+    renderServicio();
+    scrollTo(0, 0);
+    return;
+  }
+
+  // Si no es un producto ni servicio, carga el inicio normal
   renderHome();
   if (location.hash === "#productos") setTimeout(() => document.getElementById("productos")?.scrollIntoView(), 0);
 }
