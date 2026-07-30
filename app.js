@@ -24,6 +24,23 @@ function money(price) {
   return new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(price);
 }
 
+function getCurrentPrice(product, selections) {
+  if (!product) return 0;
+  let finalPrice = product.price;
+  
+  if (selections) {
+    for (const variantName in selections) {
+      const option = selections[variantName];
+      // Si la opción tiene el formato " - $ Numero", extraemos el precio
+      if (option && option.includes(" - $ ")) {
+        const priceString = option.split(" - $ ")[1].replace(/\./g, ""); // Convierte "90.000" a 90000
+        finalPrice = Number(priceString);
+      }
+    }
+  }
+  return finalPrice;
+}
+
 function loadCart() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
@@ -201,7 +218,7 @@ function renderDetail(id) {
           <section class="product-info">
             <span class="product-category">${product.category} / Colección 2026</span>
             <h1>${product.name}</h1>
-            <div class="detail-price"><strong>${money(product.price)}</strong>${product.oldPrice ? `<del>${money(product.oldPrice)}</del>` : ""}<span>Efectivo / Transferencia</span></div>
+            <div class="detail-price"><strong>${money(getCurrentPrice(product, selections))}</strong>${product.oldPrice ? `<del>${money(product.oldPrice)}</del>` : ""}<span>Efectivo / Transferencia</span></div>
             <p class="detail-description">${product.description}</p>
             ${product.variants.map((variant) => `
               <fieldset class="variant-group">
@@ -300,7 +317,10 @@ function addItem(product, selections = {}, quantity = 1, comment = "") {
 
 function renderCart() {
   const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
-  const total = state.cart.reduce((sum, item) => sum + (byId(item.productId)?.price || 0) * item.quantity, 0);
+  
+  // 1. AHORA CALCULA EL TOTAL BASADO EN EL PRECIO DE LA VARIANTE ELEGIDA
+  const total = state.cart.reduce((sum, item) => sum + getCurrentPrice(byId(item.productId), item.selections) * item.quantity, 0);
+  
   cartCount.textContent = count;
   cartTotal.textContent = money(total);
 
@@ -313,6 +333,10 @@ function renderCart() {
   cartBody.innerHTML = `<div class="cart-items">${state.cart.map((item, index) => {
     const product = byId(item.productId);
     const variants = Object.values(item.selections).filter(Boolean).join(" · ");
+    
+    // 2. EXTRAE EL PRECIO CORRECTO DEL PRODUCTO INDIVIDUAL
+    const itemPrice = getCurrentPrice(product, item.selections); 
+    
     return `
       <article class="cart-item">
         <img src="${product.images[0]}" alt="${product.name}" />
@@ -323,7 +347,8 @@ function renderCart() {
           </div>
           <div class="cart-item-bottom">
             <div class="quantity-control compact"><button data-dec="${index}">−</button><span>${item.quantity}</span><button data-inc="${index}">+</button></div>
-            <strong>${money(product.price * item.quantity)}</strong>
+            
+            <strong>${money(itemPrice * item.quantity)}</strong>
           </div>
         </div>
       </article>
@@ -362,41 +387,60 @@ function closeCart() {
 
 function checkout() {
   if (!state.cart.length) return;
-  const total = state.cart.reduce((sum, item) => sum + (byId(item.productId)?.price || 0) * item.quantity, 0);
+  
+  // 1. AHORA CALCULA EL TOTAL FINAL BASADO EN EL PRECIO DE LAS VARIANTES
+  const total = state.cart.reduce((sum, item) => sum + getCurrentPrice(byId(item.productId), item.selections) * item.quantity, 0);
+  
   const lines = state.cart.map((item) => {
     const product = byId(item.productId);
     const variants = Object.values(item.selections).filter(Boolean).join(" · ");
     const details = [variants, item.comment ? `Comentario: ${item.comment}` : ""].filter(Boolean).join(" · ");
-    return `• ${item.quantity}x ${product?.name || "Producto"}${details ? ` (${details})` : ""} - ${money((product?.price || 0) * item.quantity)}`;
+    
+    // 2. EXTRAE EL PRECIO CORRECTO DEL PRODUCTO INDIVIDUAL PARA EL MENSAJE
+    const itemPrice = getCurrentPrice(product, item.selections);
+    
+    // 3. MUESTRA EL PRECIO CALCULADO EN EL RENGLÓN DEL WHATSAPP
+    return `• ${item.quantity}x ${product?.name || "Producto"}${details ? ` (${details})` : ""} - ${money(itemPrice * item.quantity)}`;
   });
-  const message = ["¡Hola Servicell Paraná! 👋", "Quiero consultar por este pedido:", "", ...lines, "", `Total estimado: ${money(total)}`, "", "¿Me confirman disponibilidad, local de retiro y formas de entrega?"].join("\n");
+  
+  const message = [
+    "¡Hola Servicell Paraná! 👋", 
+    "Quiero consultar por este pedido:", 
+    "", 
+    ...lines, 
+    "", 
+    `Total estimado: ${money(total)}`, 
+    "", 
+    "¿Me confirman disponibilidad, local de retiro y formas de entrega?"
+  ].join("\n");
+  
   window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
 }
-
 function renderServicio() {
   // Filtramos para mostrar SOLO lo que es Servicio Técnico
   const servicios = products.filter(p => p.category === "Servicio Técnico");
 
   app.innerHTML = `
     <main class="product-page">
-      <div style="padding: 80px 20px 50px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 15px; max-width: 600px; margin: 0 auto;">
-        <span class="eyebrow" style="letter-spacing: 2px;">SERVICELL PARANÁ</span>
+      <div style="padding: 100px 20px 80px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 15px; background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)), url('assets/20260730_115346.jpg') center/cover no-repeat; border-bottom: 1px solid #222;">
         
-        <h2 style="margin: 0; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1;">
+        <span class="eyebrow" style="letter-spacing: 2px; color: #fff;">SERVICELL PARANÁ</span>
+        
+        <h2 style="margin: 0; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; color: #fff;">
           Nuestro <br>
           <em style="color: var(--primary, #ccff00); font-style: normal;">Servicio Técnico</em>
         </h2>
         
-        <p style="color: #a0a0a0; font-size: 1.1rem; margin: 10px 0 20px;">
+        <p style="color: #ccc; font-size: 1.1rem; margin: 10px 0 20px; max-width: 600px;">
           Conocé nuestros trabajos de reparación, cambios de módulo, batería, tapa láser y más.
         </p>
         
-        <a href="#productos" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem; padding: 10px 24px; border: 1px solid #444; border-radius: 30px; transition: all 0.3s ease;">
+        <a href="#productos" style="color: #fff; text-decoration: none; font-size: 0.9rem; padding: 10px 24px; border: 1px solid #666; border-radius: 30px; transition: all 0.3s ease; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">
           ← Volver a la tienda principal
         </a>
       </div>
       
-      <div class="product-grid" style="padding: 0 20px 60px;">
+      <div class="product-grid" style="padding: 40px 20px 60px;">
         ${servicios.map(productCard).join("")}
       </div>
     </main>

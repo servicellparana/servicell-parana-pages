@@ -1,5 +1,63 @@
 const products = [
   {
+    id: 403, // Asegúrate de usar un ID único
+    name: "Cambio de Módulo / Pantalla (Con Garantía)",
+    category: "Servicio Técnico",
+    price: 0, // Lo dejamos en 0 porque es "A cotizar"
+    shortDescription: "Reemplazo de pantalla rota. Trabajamos todas las marcas y calidades.",
+    description: "Recuperá la imagen y el táctil de tu equipo. Realizamos cambios de módulo con repuestos testeados y de excelente calidad. \n\nDebido a la constante variación de precios y la disponibilidad de diferentes calidades (Original, OLED, INCELL), te pedimos que nos indiques tu modelo abajo para enviarte un presupuesto exacto y actualizado por WhatsApp.",
+    images: [
+      "assets/products/WhatsApp Image 2026-07-30 at 12.16.40.jpeg" // La foto que subiste con la pantalla abierta
+    ],
+    variants: [], 
+    specs: [
+      "Repuestos testeados y garantizados",
+      "Garantía escrita incluida",
+      "Limpieza interna del equipo sin cargo",
+      "Sellado contra polvo y humedad (según modelo)"
+    ],
+    badge: "A COTIZAR", // Una etiqueta clara para que el cliente sepa que el precio no es final
+    featured: true,
+    commentPrompt: "¿Cuál es el modelo exacto de tu celular y qué calidad de pantalla buscás (Original o Alternativa)?"
+  },
+{
+    id: 19, 
+    name: "Cambio de Batería Original (Con Garantía)",
+    category: "Servicio Técnico",
+    price: 80000, 
+    shortDescription: "Reemplazo de batería para iPhone con repuestos premium y garantía.",
+    description: "Recuperá el 100% de la autonomía de tu iPhone. Realizamos el reemplazo utilizando celdas de máxima calidad (Foxconn) idénticas a las de fábrica. Seleccioná tu modelo para ver el valor exacto.",
+    images: [
+      "assets/products/WhatsApp Image 2026-07-30 at 12.05.31.jpeg", 
+      "assets/products/WhatsApp Image 2026-07-30 at 12.05.32.jpeg" 
+    ],
+    variants: [
+      {
+        name: "Modelo",
+        options: [
+          "iPhone 11 - $ 80.000",
+          "iPhone 12 / 12 Pro - $ 90.000",
+          "iPhone 12 Pro Max - $ 95.000",
+          "iPhone 13 / 14 - $ 100.000",
+          "iPhone 13 Pro / 14 Pro - $ 110.000",
+          "iPhone 13 Pro Max / 14 Pro Max - $ 120.000",
+          "iPhone 15 - $ 130.000",
+          "iPhone 15 Pro - $ 140.000",
+          "iPhone 15 Pro Max - $ 150.000"
+        ]
+      }
+    ],
+    specs: [
+      "Batería Foxconn o Ampsentrix (Calidad Original)",
+      "Condición al 100% garantizada",
+      "Garantía escrita incluida",
+      "Trabajo realizado en el día"
+    ],
+    badge: "GARANTÍA",
+    featured: true,
+    commentPrompt: "¿En qué porcentaje de vida útil se encuentra tu batería actualmente?"
+  },
+  {
     id: 18, // Asegúrate de que sea un número de ID único que no se repita
     name: "Cambio de Tapa de Vidrio (Láser)",
     category: "Servicio Técnico",
