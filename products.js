@@ -1,6 +1,38 @@
 const products = [
   {
-    id: 403, // Asegúrate de usar un ID único
+    id: 20, // Asegurate de que sea un número de ID que no estés usando
+    name: "Apple iPhone 11",
+    category: "Celulares",
+    price: 350000,
+    shortDescription: "Batería al 100%. Incluye funda a elección y cargador original.",
+    description: "Excelente oportunidad. Equipo en impecables condiciones estéticas y de funcionamiento, con batería al 100% de condición. Con la compra del equipo te llevás el cargador original y podés elegir la funda que más te guste en el local para que ya salga totalmente protegido.",
+    images: [
+      "assets/products/WhatsApp Image 2026-07-30 at 13.03.23.jpeg",
+      "assets/products/WhatsApp Image 2026-07-30 at 13.03.23 (1).jpeg",
+      "assets/products/WhatsApp Image 2026-07-30 at 13.03.24.jpeg",
+      "assets/products/WhatsApp Image 2026-07-30 at 13.03.24 (1).jpeg",
+      "assets/products/WhatsApp Image 2026-07-30 at 13.03.24 (2).jpeg",
+      "assets/products/WhatsApp Image 2026-07-30 at 13.03.25.jpeg",
+      "assets/products/WhatsApp Image 2026-07-30 at 13.03.25 (1).jpeg"
+    ],
+    variants: [
+      {
+        name: "Almacenamiento",
+        options: ["64GB"] // Cambiá esto por 128GB si corresponde a la capacidad real
+      }
+    ],
+    specs: [
+      "Condición de Batería: 100%",
+      "Cargador Original incluido",
+      "Funda a elección incluida",
+      "Libre de fábrica"
+    ],
+    badge: "BATERÍA 100%",
+    featured: true,
+    commentPrompt: "¿Qué color o estilo de funda preferís que te vayamos separando?"
+  },
+  {
+    id: 20, // Asegúrate de usar un ID único
     name: "Cambio de Módulo / Pantalla (Con Garantía)",
     category: "Servicio Técnico",
     price: 0, // Lo dejamos en 0 porque es "A cotizar"
